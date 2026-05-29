@@ -1667,15 +1667,11 @@
       </div>
     </div>
 
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
-      // Initialize EmailJS
-      if (window.emailjs) {
-        emailjs.init("pd9VyyGoVy9oE-25h"); // EmailJS User ID
-      }
+      emailjs.init({
+        publicKey: "pd9VyyGoVy9oE-25h",
+      });
     </script>
     <script>
       // Page Loader
@@ -1927,32 +1923,26 @@
 
         // Send email via EmailJS
         const SERVICE_ID = "service_n6qiww6";
-        const TEMPLATE_ID = "pp1v6zm";
+        const TEMPLATE_ID = "template_jpzesq5";
 
-        if (window.emailjs) {
-          emailjs
-            .send(SERVICE_ID, TEMPLATE_ID, templateParams)
-            .then(() => {
-              successMessage.classList.add("show");
-              contactForm.reset();
-              setTimeout(() => {
-                successMessage.classList.remove("show");
-              }, 3000);
-            })
-            .catch((err) => {
-              console.error("EmailJS error:", err);
-              alert(
-                "An error occurred while sending your message. Please try again later.",
-              );
-            });
-        } else {
-          // Fallback: show success message
-          successMessage.classList.add("show");
-          contactForm.reset();
-          setTimeout(() => {
-            successMessage.classList.remove("show");
-          }, 3000);
-        }
+        emailjs
+          .send(SERVICE_ID, TEMPLATE_ID, {
+            from_name: name,
+            from_email: email,
+            message: message,
+          })
+          .then(() => {
+            successMessage.classList.add("show");
+            contactForm.reset();
+
+            setTimeout(() => {
+              successMessage.classList.remove("show");
+            }, 3000);
+          })
+          .catch((err) => {
+            console.error("EmailJS error:", err);
+            alert("EmailJS Error: " + (err.text || "Unknown error"));
+          });
       });
 
       function isValidEmail(email) {
