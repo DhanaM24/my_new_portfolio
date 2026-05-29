@@ -1621,7 +1621,6 @@
               class="contact-item"
             >
               <i class="fas fa-envelope"></i>
-<<<<<<< HEAD
               <span>dhananjipallegedara432@gmail.com</span>
             </a>
             <a
@@ -1637,15 +1636,6 @@
               target="_blank"
               class="contact-item"
             >
-=======
-              <span>dhananjipallegedara432@g.com</span>
-            </a>
-            <a href="https://linkedin.com" target="_blank" class="contact-item">
-              <i class="fab fa-linkedin-in"></i>
-              <span>LinkedIn Profile</span>
-            </a>
-            <a href="https://github.com" target="_blank" class="contact-item">
->>>>>>> e348e70e925c9ac6f88136a769a28491cd90aa03
               <i class="fab fa-github"></i>
               <span>GitHub Profile</span>
             </a>
@@ -1677,6 +1667,16 @@
       </div>
     </div>
 
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"
+    ></script>
+    <script>
+      // Initialize EmailJS
+      if (window.emailjs) {
+        emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS User ID
+      }
+    </script>
     <script>
       // Page Loader
       window.addEventListener("load", () => {
@@ -1918,16 +1918,41 @@
           return;
         }
 
-        // Show success message
-        successMessage.classList.add("show");
+        // Prepare template parameters for EmailJS
+        const templateParams = {
+          from_name: name,
+          from_email: email,
+          message: message,
+        };
 
-        // Reset form
-        contactForm.reset();
+        // Send email via EmailJS
+        const SERVICE_ID = "service_n6qiww6";
+        const TEMPLATE_ID = "pp1v6zm";
 
-        // Hide success message after 3 seconds
-        setTimeout(() => {
-          successMessage.classList.remove("show");
-        }, 3000);
+        if (window.emailjs && SERVICE_ID !== "service_n6qiww6") {
+          emailjs
+            .send(SERVICE_ID, TEMPLATE_ID, templateParams)
+            .then(() => {
+              successMessage.classList.add("show");
+              contactForm.reset();
+              setTimeout(() => {
+                successMessage.classList.remove("show");
+              }, 3000);
+            })
+            .catch((err) => {
+              console.error("EmailJS error:", err);
+              alert(
+                "An error occurred while sending your message. Please try again later.",
+              );
+            });
+        } else {
+          // Fallback: show success message
+          successMessage.classList.add("show");
+          contactForm.reset();
+          setTimeout(() => {
+            successMessage.classList.remove("show");
+          }, 3000);
+        }
       });
 
       function isValidEmail(email) {
