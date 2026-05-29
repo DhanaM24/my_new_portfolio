@@ -1674,7 +1674,7 @@
     <script>
       // Initialize EmailJS
       if (window.emailjs) {
-        emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS User ID
+        emailjs.init("pd9VyyGoVy9oE-25h"); // EmailJS User ID
       }
     </script>
     <script>
@@ -1929,7 +1929,7 @@
         const SERVICE_ID = "service_n6qiww6";
         const TEMPLATE_ID = "pp1v6zm";
 
-        if (window.emailjs && SERVICE_ID !== "service_n6qiww6") {
+        if (window.emailjs) {
           emailjs
             .send(SERVICE_ID, TEMPLATE_ID, templateParams)
             .then(() => {
