@@ -13,6 +13,14 @@ window.addEventListener("load", () => {
       const top = element.getBoundingClientRect().top;
       if (top < triggerBottom) {
         element.classList.add("active", "visible");
+        // If this is a skill category, animate its progress bars
+        if (element.classList.contains("skill-category")) {
+          const progresses = element.querySelectorAll(".skill-progress");
+          progresses.forEach((p) => {
+            const width = p.getAttribute("data-width") || p.dataset.width;
+            if (width) p.style.width = `${width}%`;
+          });
+        }
       }
     });
   };
