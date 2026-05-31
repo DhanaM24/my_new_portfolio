@@ -27,6 +27,43 @@ window.addEventListener("load", () => {
 
   showOnScroll();
   window.addEventListener("scroll", showOnScroll);
+
+  const typingText = document.getElementById("typingText");
+  const typingStrings = [
+    "Full Stack Web Developer",
+    "MERN Stack Engineer",
+    "UI/UX Enthusiast",
+  ];
+  let typingIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+
+  const typeText = () => {
+    if (!typingText) return;
+
+    const currentString = typingStrings[typingIndex];
+    if (isDeleting) {
+      charIndex -= 1;
+      typingText.textContent = currentString.slice(0, charIndex);
+    } else {
+      charIndex += 1;
+      typingText.textContent = currentString.slice(0, charIndex);
+    }
+
+    let delay = isDeleting ? 50 : 100;
+    if (!isDeleting && charIndex === currentString.length) {
+      delay = 2000;
+      isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      typingIndex = (typingIndex + 1) % typingStrings.length;
+      delay = 500;
+    }
+
+    setTimeout(typeText, delay);
+  };
+
+  typeText();
 });
 
 const cursor = document.querySelector(".cursor");
@@ -74,7 +111,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 projectCards.forEach((card) => revealObserver.observe(card));
 
-const form = document.getElementById("contact-form");
+const form = document.getElementById("contactForm");
 const successMessage = document.querySelector(".success-message");
 
 form.addEventListener("submit", function (event) {
