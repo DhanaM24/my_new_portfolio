@@ -1,4 +1,11 @@
-emailjs.init({ publicKey: "pd9VyyGoVy9oE-25h" });
+const EMAILJS_PUBLIC_KEY = "pd9VyyGoVy9oE-25h";
+const EMAILJS_SERVICE_ID = "service_n6qiww6";
+const EMAILJS_TEMPLATE_ID = "template_jpzesq5";
+const CONTACT_EMAIL = "dhananjipallegedara432@gmail.com";
+
+if (typeof emailjs !== "undefined") {
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+}
 
 window.addEventListener("load", () => {
   const loader = document.querySelector(".loader");
@@ -13,7 +20,6 @@ window.addEventListener("load", () => {
       const top = element.getBoundingClientRect().top;
       if (top < triggerBottom) {
         element.classList.add("active", "visible");
-        // If this is a skill category, animate its progress bars
         if (element.classList.contains("skill-category")) {
           const progresses = element.querySelectorAll(".skill-progress");
           progresses.forEach((p) => {
@@ -96,53 +102,156 @@ backToTop.addEventListener("click", () => {
 });
 
 const projectCards = document.querySelectorAll(".project-card");
-const observerOptions = {
-  threshold: 0.25,
-};
-
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-      revealObserver.unobserve(entry.target);
-    }
-  });
-}, observerOptions);
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.25 },
+);
 
 projectCards.forEach((card) => revealObserver.observe(card));
 
-const form = document.getElementById("contactForm");
-const successMessage = document.querySelector(".success-message");
+function showContactSuccess(form, successMessage) {
+  form.reset();
+  successMessage.classList.add("show");
+  setTimeout(() => successMessage.classList.remove("show"), 4000);
+}
 
-form.addEventListener("submit", function (event) {
-  event.preventDefault();
+function getEmailJsErrorMessage(error) {
+  const status = error?.status;
+  const text = (error?.text || "").toLowerCase();
 
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const message = document.getElementById("message").value.trim();
+  if (status === 403 || text.includes("forbidden")) {
+    return (
+      "EmailJS blocked this site. In your EmailJS dashboard (Account → Security), " +
+      "allow: https://dhanam24.github.io"
+    );
+  }
+  if (status === 412 || text.includes("quota")) {
+    return "Monthly email limit reached on EmailJS. Trying backup delivery…";
+  }
+  if (status === 400) {
+    return "Email template mismatch. Check template variables in EmailJS.";
+  }
+  return "";
+}
 
-  if (!name || !email || !message) {
-    alert("Please fill in all fields before sending your message.");
-    return;
+async function sendViaEmailJS(name, email, message) {
+  if (typeof emailjs === "undefined") {
+    throw new Error("EmailJS not loaded");
   }
 
-  emailjs
-    .send("service_n6qiww6", "template_jpzesq5", {
+  return emailjs.send(
+    EMAILJS_SERVICE_ID,
+    EMAILJS_TEMPLATE_ID,
+    {
       from_name: name,
       from_email: email,
-      message: message,
-    })
-    .then(
-      function () {
-        form.reset();
-        successMessage.classList.add("show");
-        setTimeout(() => successMessage.classList.remove("show"), 4000);
+      reply_to: email,
+      name,
+      email,
+      message,
+    },
+    { publicKey: EMAILJS_PUBLIC_KEY },
+  );
+}
+
+async function sendViaFormSubmit(name, email, message) {
+  const response = await fetch(
+    `https://formsubmit.co/ajax/${encodeURIComponent(CONTACT_EMAIL)}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
-      function (error) {
-        console.error("EmailJS error:", error);
-        alert(
-          "An unexpected error occurred while sending the message. Please try again later.",
+      body: JSON.stringify({
+        name,
+        email,
+        message,
+        _subject: `Portfolio message from ${name}`,
+        _template: "table",
+        _captcha: "false",
+      }),
+    },
+  );
+
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error(data.message || "Backup send failed");
+  }
+  return data;
+}
+
+function openMailtoFallback(name, email, message) {
+  const subject = encodeURIComponent(`Portfolio contact from ${name}`);
+  const body = encodeURIComponent(
+    `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+  );
+  window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+}
+
+const form = document.getElementById("contactForm");
+const successMessage = document.getElementById("successMessage");
+
+if (form && successMessage) {
+  const submitBtn = form.querySelector(".submit-btn");
+  const defaultBtnHtml = submitBtn?.innerHTML;
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    if (!name || !email || !message) {
+      alert("Please fill in all fields before sending your message.");
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML =
+        '<i class="fas fa-spinner fa-spin"></i> Sending…';
+    }
+
+    try {
+      await sendViaEmailJS(name, email, message);
+      showContactSuccess(form, successMessage);
+    } catch (emailJsError) {
+      console.error("EmailJS error:", emailJsError);
+      const hint = getEmailJsErrorMessage(emailJsError);
+
+      try {
+        await sendViaFormSubmit(name, email, message);
+        showContactSuccess(form, successMessage);
+      } catch (fallbackError) {
+        console.error("FormSubmit error:", fallbackError);
+        const tryMailto = confirm(
+          (hint ||
+            "Could not send your message automatically.") +
+            "\n\nOpen your email app to send it manually?",
         );
-      },
-    );
-});
+        if (tryMailto) openMailtoFallback(name, email, message);
+        else {
+          alert(
+            (hint || "Sending failed.") +
+              "\n\nEmail me directly: " +
+              CONTACT_EMAIL,
+          );
+        }
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = defaultBtnHtml;
+      }
+    }
+  });
+}

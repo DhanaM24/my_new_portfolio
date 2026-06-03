@@ -1030,9 +1030,14 @@ section {
   overflow: hidden;
 }
 
-.submit-btn:hover {
+.submit-btn:hover:not(:disabled) {
   transform: translateY(-3px);
   box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+}
+
+.submit-btn:disabled {
+  opacity: 0.75;
+  cursor: wait;
 }
 
 .submit-btn::after {
