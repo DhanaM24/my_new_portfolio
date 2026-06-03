@@ -1,4 +1,4 @@
-const EMAILJS_PUBLIC_KEY = "pd9VyyGoVy9oE-25h";
+const EMAILJS_PUBLIC_KEY = "pd9VyyGoVv9oE-25h";
 const EMAILJS_SERVICE_ID = "service_n6qiww6";
 const EMAILJS_TEMPLATE_ID = "template_jpzesq5";
 const CONTACT_EMAIL = "dhananjipallegedara432@gmail.com";
