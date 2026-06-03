@@ -1,7 +1,6 @@
 const EMAILJS_PUBLIC_KEY = "pd9VyyGoVv9oE-25h";
-const EMAILJS_SERVICE_ID = "service_n6qiww6";
+const EMAILJS_SERVICE_ID = "service_ng316pi";
 const EMAILJS_TEMPLATE_ID = "template_jpzesq5";
-const CONTACT_EMAIL = "dhananjipallegedara432@gmail.com";
 
 if (typeof emailjs !== "undefined") {
   emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
@@ -116,94 +115,14 @@ const revealObserver = new IntersectionObserver(
 
 projectCards.forEach((card) => revealObserver.observe(card));
 
-function showContactSuccess(form, successMessage) {
-  form.reset();
-  successMessage.classList.add("show");
-  setTimeout(() => successMessage.classList.remove("show"), 4000);
-}
-
-function getEmailJsErrorMessage(error) {
-  const status = error?.status;
-  const text = (error?.text || "").toLowerCase();
-
-  if (status === 403 || text.includes("forbidden")) {
-    return (
-      "EmailJS blocked this site. In your EmailJS dashboard (Account → Security), " +
-      "allow: https://dhanam24.github.io"
-    );
-  }
-  if (status === 412 || text.includes("quota")) {
-    return "Monthly email limit reached on EmailJS. Trying backup delivery…";
-  }
-  if (status === 400) {
-    return "Email template mismatch. Check template variables in EmailJS.";
-  }
-  return "";
-}
-
-async function sendViaEmailJS(name, email, message) {
-  if (typeof emailjs === "undefined") {
-    throw new Error("EmailJS not loaded");
-  }
-
-  return emailjs.send(
-    EMAILJS_SERVICE_ID,
-    EMAILJS_TEMPLATE_ID,
-    {
-      from_name: name,
-      from_email: email,
-      reply_to: email,
-      name,
-      email,
-      message,
-    },
-    { publicKey: EMAILJS_PUBLIC_KEY },
-  );
-}
-
-async function sendViaFormSubmit(name, email, message) {
-  const response = await fetch(
-    `https://formsubmit.co/ajax/${encodeURIComponent(CONTACT_EMAIL)}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        message,
-        _subject: `Portfolio message from ${name}`,
-        _template: "table",
-        _captcha: "false",
-      }),
-    },
-  );
-
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok) {
-    throw new Error(data.message || "Backup send failed");
-  }
-  return data;
-}
-
-function openMailtoFallback(name, email, message) {
-  const subject = encodeURIComponent(`Portfolio contact from ${name}`);
-  const body = encodeURIComponent(
-    `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
-  );
-  window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-}
-
 const form = document.getElementById("contactForm");
 const successMessage = document.getElementById("successMessage");
 
-if (form && successMessage) {
+if (form) {
   const submitBtn = form.querySelector(".submit-btn");
   const defaultBtnHtml = submitBtn?.innerHTML;
 
-  form.addEventListener("submit", async (event) => {
+  form.addEventListener("submit", function (event) {
     event.preventDefault();
 
     const name = document.getElementById("name").value.trim();
@@ -215,43 +134,41 @@ if (form && successMessage) {
       return;
     }
 
+    const replyToField = document.getElementById("reply_to");
+    if (replyToField) replyToField.value = email;
+
     if (submitBtn) {
       submitBtn.disabled = true;
       submitBtn.innerHTML =
         '<i class="fas fa-spinner fa-spin"></i> Sending…';
     }
 
-    try {
-      await sendViaEmailJS(name, email, message);
-      showContactSuccess(form, successMessage);
-    } catch (emailJsError) {
-      console.error("EmailJS error:", emailJsError);
-      const hint = getEmailJsErrorMessage(emailJsError);
-
-      try {
-        await sendViaFormSubmit(name, email, message);
-        showContactSuccess(form, successMessage);
-      } catch (fallbackError) {
-        console.error("FormSubmit error:", fallbackError);
-        const tryMailto = confirm(
-          (hint ||
-            "Could not send your message automatically.") +
-            "\n\nOpen your email app to send it manually?",
-        );
-        if (tryMailto) openMailtoFallback(name, email, message);
-        else {
-          alert(
-            (hint || "Sending failed.") +
-              "\n\nEmail me directly: " +
-              CONTACT_EMAIL,
-          );
+    emailjs
+      .sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        form,
+        { publicKey: EMAILJS_PUBLIC_KEY },
+      )
+      .then(() => {
+        alert("Message sent successfully!");
+        form.reset();
+        if (successMessage) {
+          successMessage.classList.add("show");
+          setTimeout(() => successMessage.classList.remove("show"), 4000);
         }
-      }
-    } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = defaultBtnHtml;
-      }
-    }
+      })
+      .catch((error) => {
+        console.log("EmailJS Error:", error);
+        alert(
+          "An unexpected error occurred while sending the message. Please try again later.",
+        );
+      })
+      .finally(() => {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = defaultBtnHtml;
+        }
+      });
   });
 }
