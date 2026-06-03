@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" aria-label="Coffee Shop Website">
+  <defs>
+    <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14101a"/>
+      <stop offset="50%" stop-color="#1a1528"/>
+      <stop offset="100%" stop-color="#0f1a2e"/>
+    </linearGradient>
+    <linearGradient id="accent4" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="100%" stop-color="#c77dff"/>
+    </linearGradient>
+    <linearGradient id="steam" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0.25"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="400" fill="url(#bg4)"/>
+  <circle cx="700" cy="320" r="110" fill="#9d4edd" opacity="0.07"/>
+  <circle cx="90" cy="90" r="70" fill="#00d4ff" opacity="0.08"/>
+  <!-- Browser window -->
+  <rect x="100" y="55" width="420" height="290" rx="14" fill="rgba(12,18,35,0.95)" stroke="rgba(0,212,255,0.35)" stroke-width="1.5"/>
+  <rect x="100" y="55" width="420" height="36" rx="14" fill="rgba(0,212,255,0.08)"/>
+  <rect x="118" y="68" width="10" height="10" rx="5" fill="#ff6b6b" opacity="0.8"/>
+  <rect x="136" y="68" width="10" height="10" rx="5" fill="#ffd93d" opacity="0.8"/>
+  <rect x="154" y="68" width="10" height="10" rx="5" fill="#4ade80" opacity="0.8"/>
+  <rect x="180" y="72" width="200" height="6" rx="3" fill="#fff" opacity="0.1"/>
+  <!-- Hero banner in site -->
+  <rect x="120" y="110" width="380" height="90" rx="8" fill="url(#accent4)" opacity="0.25"/>
+  <rect x="140" y="135" width="160" height="12" rx="6" fill="#fff" opacity="0.85"/>
+  <rect x="140" y="158" width="220" height="8" rx="4" fill="#fff" opacity="0.35"/>
+  <rect x="140" y="178" width="90" height="24" rx="6" fill="#00d4ff" opacity="0.9"/>
+  <!-- Menu cards -->
+  <rect x="120" y="220" width="110" height="100" rx="10" fill="rgba(0,212,255,0.06)" stroke="rgba(0,212,255,0.25)" stroke-width="1"/>
+  <circle cx="175" cy="255" r="22" fill="rgba(199,125,255,0.2)" stroke="#c77dff" stroke-width="1.5"/>
+  <rect x="140" y="290" width="70" height="6" rx="3" fill="#fff" opacity="0.2"/>
+  <rect x="250" y="220" width="110" height="100" rx="10" fill="rgba(157,78,221,0.08)" stroke="rgba(157,78,221,0.3)" stroke-width="1"/>
+  <circle cx="305" cy="255" r="22" fill="rgba(0,212,255,0.15)" stroke="#00d4ff" stroke-width="1.5"/>
+  <rect x="270" y="290" width="70" height="6" rx="3" fill="#fff" opacity="0.2"/>
+  <rect x="380" y="220" width="110" height="100" rx="10" fill="rgba(0,212,255,0.06)" stroke="rgba(0,212,255,0.25)" stroke-width="1"/>
+  <circle cx="435" cy="255" r="22" fill="rgba(74,222,128,0.15)" stroke="#4ade80" stroke-width="1.5"/>
+  <rect x="400" y="290" width="70" height="6" rx="3" fill="#fff" opacity="0.2"/>
+  <!-- Coffee cup -->
+  <g transform="translate(580, 120)">
+    <path d="M0 80 Q0 20 50 20 Q100 20 100 80 L100 95 Q100 110 50 110 Q0 110 0 95 Z" fill="rgba(18,26,50,0.9)" stroke="url(#accent4)" stroke-width="2"/>
+    <ellipse cx="50" cy="22" rx="48" ry="10" fill="rgba(90,60,40,0.6)" stroke="#c77dff" stroke-width="1" opacity="0.8"/>
+    <path d="M100 45 Q130 45 130 65 Q130 85 100 75" fill="none" stroke="#00d4ff" stroke-width="3"/>
+    <path d="M35 5 Q40 -25 50 -40 Q60 -25 65 5" fill="none" stroke="url(#steam)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M55 0 Q58 -28 68 -42 Q78 -28 80 0" fill="none" stroke="url(#steam)" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+    <path d="M72 8 Q75 -20 82 -32" fill="none" stroke="url(#steam)" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  </g>
+  <text x="400" y="375" text-anchor="middle" fill="#8899aa" font-family="Segoe UI, sans-serif" font-size="13" letter-spacing="2">COFFEE SHOP " RESPONSIVE WEB</text>
+</svg>
