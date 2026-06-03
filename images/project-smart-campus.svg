@@ -36,7 +36,7 @@
   <line x1="400" y1="220" x2="158" y2="295" stroke="#9d4edd" stroke-width="1" opacity="0.3"/>
   <!-- Dashboard panel -->
   <rect x="80" y="70" width="160" height="110" rx="10" fill="rgba(12,20,40,0.92)" stroke="rgba(0,212,255,0.4)" stroke-width="1.5"/>
-  <text x="100" y="95" fill="#00d4ff" font-family="Segoe UI, sans-serif" font-size="11" font-weight="600">LIVE OPS</text>
+  <text x="100" y="95" fill="#00d4ff" font-family="Segoe UI, sans-serif" font-size="11" font-weight="600">LIVE GPS</text>
   <polyline points="95,155 115,140 130,148 150,125 170,135" fill="none" stroke="#00d4ff" stroke-width="2"/>
   <circle cx="170" cy="135" r="4" fill="#00d4ff"/>
   <rect x="95" y="165" width="50" height="6" rx="3" fill="#fff" opacity="0.12"/>
