@@ -1,5 +1,6 @@
-const EMAILJS_PUBLIC_KEY = "pd9VyyGoVv9oE-25h";
+// EmailJS credentials
 const EMAILJS_SERVICE_ID = "service_ng316pi";
+const EMAILJS_PUBLIC_KEY = "pd9VyyGoVv9oE-25h";
 const EMAILJS_TEMPLATE_ID = "template_jpzesq5";
 
 if (typeof emailjs !== "undefined") {
@@ -116,7 +117,6 @@ const revealObserver = new IntersectionObserver(
 projectCards.forEach((card) => revealObserver.observe(card));
 
 const form = document.getElementById("contactForm");
-const successMessage = document.getElementById("successMessage");
 
 if (form) {
   const submitBtn = form.querySelector(".submit-btn");
@@ -125,17 +125,17 @@ if (form) {
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const message = document.getElementById("message").value.trim();
-
-    if (!name || !email || !message) {
+    if (
+      !form.from_name.value.trim() ||
+      !form.from_email.value.trim() ||
+      !form.message.value.trim()
+    ) {
       alert("Please fill in all fields before sending your message.");
       return;
     }
 
     const replyToField = document.getElementById("reply_to");
-    if (replyToField) replyToField.value = email;
+    if (replyToField) replyToField.value = form.from_email.value.trim();
 
     if (submitBtn) {
       submitBtn.disabled = true;
@@ -148,15 +148,11 @@ if (form) {
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         form,
-        { publicKey: EMAILJS_PUBLIC_KEY },
+        EMAILJS_PUBLIC_KEY,
       )
       .then(() => {
         alert("Message sent successfully!");
         form.reset();
-        if (successMessage) {
-          successMessage.classList.add("show");
-          setTimeout(() => successMessage.classList.remove("show"), 4000);
-        }
       })
       .catch((error) => {
         console.log("EmailJS Error:", error);
