@@ -1,50 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" aria-label="Smart Campus Operations Hub">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Smart Campus Operations Hub">
   <defs>
-    <linearGradient id="bg2" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#0d1525"/>
-      <stop offset="100%" stop-color="#1e1245"/>
+    <linearGradient id="sc-bg" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#061410"/>
+      <stop offset="50%" stop-color="#0c1a22"/>
+      <stop offset="100%" stop-color="#0a1620"/>
     </linearGradient>
-    <linearGradient id="accent2" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#00d4ff"/>
-      <stop offset="100%" stop-color="#7b2cbf"/>
+    <linearGradient id="sc-accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4ade80"/>
+      <stop offset="100%" stop-color="#00d4ff"/>
     </linearGradient>
-    <filter id="glow2">
-      <feGaussianBlur stdDeviation="3" result="b"/>
+    <linearGradient id="sc-glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(74,222,128,0.14)"/>
+      <stop offset="100%" stop-color="rgba(0,212,255,0.04)"/>
+    </linearGradient>
+    <filter id="sc-blur">
+      <feGaussianBlur stdDeviation="24" result="b"/>
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
+    <filter id="sc-glow">
+      <feGaussianBlur stdDeviation="5" result="g"/>
+      <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-  <rect width="800" height="400" fill="url(#bg2)"/>
-  <circle cx="120" cy="100" r="80" fill="#9d4edd" opacity="0.07"/>
-  <circle cx="700" cy="300" r="100" fill="#00d4ff" opacity="0.06"/>
+  <rect width="800" height="450" fill="url(#sc-bg)"/>
+  <ellipse cx="700" cy="380" rx="150" ry="90" fill="#4ade80" opacity="0.12" filter="url(#sc-blur)"/>
+  <ellipse cx="90" cy="80" rx="100" ry="70" fill="#00d4ff" opacity="0.1" filter="url(#sc-blur)"/>
   <!-- Campus building -->
-  <g transform="translate(280, 120)">
-    <rect x="0" y="80" width="240" height="140" fill="rgba(18,30,55,0.95)" stroke="url(#accent2)" stroke-width="2" rx="4"/>
-    <polygon points="120,20 260,80 0,80" fill="rgba(0,212,255,0.12)" stroke="#00d4ff" stroke-width="2" stroke-linejoin="round"/>
-    <rect x="30" y="110" width="45" height="55" fill="rgba(0,212,255,0.2)" stroke="#00d4ff" stroke-width="1" opacity="0.8"/>
-    <rect x="95" y="110" width="45" height="55" fill="rgba(0,212,255,0.2)" stroke="#00d4ff" stroke-width="1" opacity="0.8"/>
-    <rect x="160" y="110" width="45" height="55" fill="rgba(157,78,221,0.2)" stroke="#9d4edd" stroke-width="1" opacity="0.8"/>
-    <rect x="100" y="155" width="40" height="65" fill="rgba(0,212,255,0.15)" stroke="#00d4ff" stroke-width="1.5"/>
+  <g transform="translate(300, 130)">
+    <polygon points="120,0 260,70 0,70" fill="rgba(74,222,128,0.15)" stroke="url(#sc-accent)" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="20" y="70" width="220" height="150" rx="6" fill="rgba(12,30,28,0.9)" stroke="rgba(74,222,128,0.4)" stroke-width="1.5"/>
+    <rect x="45" y="95" width="42" height="50" fill="rgba(74,222,128,0.2)" stroke="#4ade80" stroke-width="1" rx="4"/>
+    <rect x="105" y="95" width="42" height="50" fill="rgba(74,222,128,0.2)" stroke="#4ade80" stroke-width="1" rx="4"/>
+    <rect x="165" y="95" width="42" height="50" fill="rgba(0,212,255,0.15)" stroke="#00d4ff" stroke-width="1" rx="4"/>
+    <rect x="95" y="155" width="50" height="65" fill="rgba(0,212,255,0.12)" stroke="#00d4ff" stroke-width="1.5" rx="4"/>
   </g>
-  <!-- IoT nodes & connections -->
-  <circle cx="180" cy="200" r="10" fill="#00d4ff" filter="url(#glow2)"/>
-  <circle cx="620" cy="160" r="10" fill="#9d4edd" filter="url(#glow2)"/>
-  <circle cx="650" cy="280" r="8" fill="#00d4ff" opacity="0.8"/>
-  <circle cx="150" cy="300" r="8" fill="#9d4edd" opacity="0.8"/>
-  <line x1="190" y1="200" x2="280" y2="200" stroke="#00d4ff" stroke-width="1.5" opacity="0.4" stroke-dasharray="4 4"/>
-  <line x1="520" y1="200" x2="610" y2="170" stroke="#9d4edd" stroke-width="1.5" opacity="0.4" stroke-dasharray="4 4"/>
-  <line x1="400" y1="220" x2="650" y2="275" stroke="#00d4ff" stroke-width="1" opacity="0.3"/>
-  <line x1="400" y1="220" x2="158" y2="295" stroke="#9d4edd" stroke-width="1" opacity="0.3"/>
-  <!-- Dashboard panel -->
-  <rect x="80" y="70" width="160" height="110" rx="10" fill="rgba(12,20,40,0.92)" stroke="rgba(0,212,255,0.4)" stroke-width="1.5"/>
-  <text x="100" y="95" fill="#00d4ff" font-family="Segoe UI, sans-serif" font-size="11" font-weight="600">LIVE GPS</text>
-  <polyline points="95,155 115,140 130,148 150,125 170,135" fill="none" stroke="#00d4ff" stroke-width="2"/>
-  <circle cx="170" cy="135" r="4" fill="#00d4ff"/>
-  <rect x="95" y="165" width="50" height="6" rx="3" fill="#fff" opacity="0.12"/>
-  <!-- Alert badge -->
-  <rect x="580" y="80" width="150" height="90" rx="10" fill="rgba(12,20,40,0.92)" stroke="rgba(157,78,221,0.45)" stroke-width="1.5"/>
-  <circle cx="605" cy="105" r="6" fill="#ff6b6b"/>
-  <rect x="620" y="100" width="80" height="8" rx="4" fill="#fff" opacity="0.2"/>
-  <rect x="600" y="125" width="110" height="6" rx="3" fill="#fff" opacity="0.1"/>
-  <rect x="600" y="142" width="90" height="6" rx="3" fill="#fff" opacity="0.08"/>
-  <text x="400" y="370" text-anchor="middle" fill="#8899aa" font-family="Segoe UI, sans-serif" font-size="13" letter-spacing="2">SMART CAMPUS " IoT &amp; ANALYTICS</text>
+  <!-- IoT network -->
+  <circle cx="180" cy="220" r="12" fill="#4ade80" filter="url(#sc-glow)"/>
+  <circle cx="620" cy="180" r="12" fill="#00d4ff" filter="url(#sc-glow)"/>
+  <circle cx="650" cy="300" r="9" fill="#4ade80" opacity="0.8"/>
+  <circle cx="150" cy="320" r="9" fill="#00d4ff" opacity="0.8"/>
+  <line x1="192" y1="220" x2="300" y2="200" stroke="#4ade80" stroke-width="1.5" opacity="0.4" stroke-dasharray="6 4"/>
+  <line x1="520" y1="210" x2="608" y2="188" stroke="#00d4ff" stroke-width="1.5" opacity="0.4" stroke-dasharray="6 4"/>
+  <line x1="400" y1="250" x2="641" y2="295" stroke="#4ade80" stroke-width="1" opacity="0.25"/>
+  <!-- Live dashboard -->
+  <rect x="70" y="70" width="200" height="130" rx="16" fill="url(#sc-glass)" stroke="rgba(74,222,128,0.4)" stroke-width="1.5"/>
+  <rect x="90" y="92" width="70" height="10" rx="5" fill="#4ade80" opacity="0.9"/>
+  <text x="90" y="118" fill="#4ade80" font-family="Segoe UI, sans-serif" font-size="10" font-weight="700">LIVE GPS</text>
+  <polyline points="90,165 115,148 135,158 160,130 185,142" fill="none" stroke="url(#sc-accent)" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="185" cy="142" r="5" fill="#4ade80"/>
+  <!-- Alerts panel -->
+  <rect x="530" y="75" width="200" height="115" rx="16" fill="url(#sc-glass)" stroke="rgba(0,212,255,0.35)" stroke-width="1.5"/>
+  <circle cx="555" cy="100" r="7" fill="#ff6b6b"/>
+  <rect x="572" y="94" width="120" height="9" rx="4" fill="#fff" opacity="0.25"/>
+  <rect x="550" y="118" width="150" height="6" rx="3" fill="#fff" opacity="0.12"/>
+  <rect x="550" y="135" width="130" height="6" rx="3" fill="#fff" opacity="0.08"/>
+  <rect x="550" y="158" width="90" height="22" rx="8" fill="rgba(74,222,128,0.25)" stroke="#4ade80" stroke-width="1"/>
+  <text x="400" y="400" text-anchor="middle" fill="#7cb89a" font-family="Segoe UI, system-ui, sans-serif" font-size="12" font-weight="600" letter-spacing="3">SMART CAMPUS · IoT &amp; ANALYTICS</text>
 </svg>

@@ -1,47 +1,65 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" aria-label="Career Path Help System">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Career Path Help System">
   <defs>
-    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0a1628"/>
-      <stop offset="50%" stop-color="#121a35"/>
-      <stop offset="100%" stop-color="#1a1040"/>
+    <linearGradient id="cp-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c0f1a"/>
+      <stop offset="45%" stop-color="#15102a"/>
+      <stop offset="100%" stop-color="#0a1628"/>
     </linearGradient>
-    <linearGradient id="accent1" x1="0%" y1="0%" x2="100%" y2="0%">
+    <linearGradient id="cp-glow" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#00d4ff"/>
-      <stop offset="100%" stop-color="#9d4edd"/>
+      <stop offset="50%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#c77dff"/>
     </linearGradient>
-    <filter id="glow1" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    <linearGradient id="cp-card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.12)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.02)"/>
+    </linearGradient>
+    <filter id="cp-blur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="28" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="cp-glow-f">
+      <feGaussianBlur stdDeviation="6" result="g"/>
+      <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
-  <rect width="800" height="400" fill="url(#bg1)"/>
-  <circle cx="680" cy="80" r="120" fill="#00d4ff" opacity="0.06"/>
-  <circle cx="100" cy="320" r="90" fill="#9d4edd" opacity="0.08"/>
-  <!-- Roadmap path -->
-  <path d="M120 280 C200 200, 280 320, 360 240 S520 160, 600 200 S720 120, 700 100" fill="none" stroke="url(#accent1)" stroke-width="3" stroke-dasharray="8 6" opacity="0.5"/>
-  <!-- Milestone nodes -->
-  <circle cx="160" cy="260" r="14" fill="#121a35" stroke="#00d4ff" stroke-width="2"/>
-  <circle cx="360" cy="240" r="14" fill="#121a35" stroke="#00d4ff" stroke-width="2"/>
-  <circle cx="560" cy="180" r="14" fill="#121a35" stroke="#9d4edd" stroke-width="2"/>
-  <circle cx="680" cy="120" r="18" fill="#00d4ff" filter="url(#glow1)"/>
-  <path d="M674 120 L682 120 L678 112 Z" fill="#0a1628"/>
-  <!-- Compass -->
-  <g transform="translate(200, 130)">
-    <circle cx="0" cy="0" r="70" fill="rgba(0,212,255,0.08)" stroke="url(#accent1)" stroke-width="2"/>
-    <circle cx="0" cy="0" r="50" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.4"/>
-    <polygon points="0,-45 8,0 0,45 -8,0" fill="#00d4ff" opacity="0.9"/>
-    <polygon points="0,-45 -8,0 0,0" fill="#9d4edd" opacity="0.7"/>
-    <text x="0" y="-58" text-anchor="middle" fill="#00d4ff" font-family="Segoe UI, sans-serif" font-size="11" font-weight="600">N</text>
+  <rect width="800" height="450" fill="url(#cp-bg)"/>
+  <ellipse cx="680" cy="90" rx="140" ry="100" fill="#a855f7" opacity="0.15" filter="url(#cp-blur)"/>
+  <ellipse cx="120" cy="360" rx="120" ry="80" fill="#00d4ff" opacity="0.12" filter="url(#cp-blur)"/>
+  <!-- Glass dashboard -->
+  <rect x="80" y="55" width="420" height="280" rx="20" fill="url(#cp-card)" stroke="rgba(199,125,255,0.35)" stroke-width="1.5"/>
+  <rect x="80" y="55" width="420" height="48" rx="20" fill="rgba(168,85,247,0.12)"/>
+  <circle cx="108" cy="79" r="6" fill="#ff5f6d"/>
+  <circle cx="128" cy="79" r="6" fill="#ffbe3d"/>
+  <circle cx="148" cy="79" r="6" fill="#4ade80"/>
+  <rect x="170" y="72" width="180" height="14" rx="7" fill="rgba(255,255,255,0.08)"/>
+  <!-- Sidebar -->
+  <rect x="100" y="120" width="90" height="195" rx="12" fill="rgba(0,212,255,0.06)" stroke="rgba(0,212,255,0.2)" stroke-width="1"/>
+  <rect x="115" y="140" width="60" height="8" rx="4" fill="#c77dff" opacity="0.9"/>
+  <rect x="115" y="165" width="50" height="6" rx="3" fill="#fff" opacity="0.2"/>
+  <rect x="115" y="182" width="55" height="6" rx="3" fill="#fff" opacity="0.12"/>
+  <rect x="115" y="199" width="45" height="6" rx="3" fill="#fff" opacity="0.12"/>
+  <rect x="115" y="230" width="60" height="28" rx="8" fill="url(#cp-glow)" opacity="0.85"/>
+  <!-- Roadmap chart -->
+  <polyline points="220,280 270,240 320,255 370,200 420,215 470,165" fill="none" stroke="url(#cp-glow)" stroke-width="3" stroke-linecap="round" filter="url(#cp-glow-f)"/>
+  <circle cx="220" cy="280" r="10" fill="#0c0f1a" stroke="#00d4ff" stroke-width="2.5"/>
+  <circle cx="320" cy="255" r="10" fill="#0c0f1a" stroke="#a855f7" stroke-width="2.5"/>
+  <circle cx="420" cy="215" r="10" fill="#0c0f1a" stroke="#c77dff" stroke-width="2.5"/>
+  <circle cx="470" cy="165" r="14" fill="#c77dff" filter="url(#cp-glow-f)"/>
+  <path d="M466 165 L474 165 L470 157 Z" fill="#0c0f1a"/>
+  <!-- AI panel -->
+  <rect x="210" y="125" width="270" height="95" rx="14" fill="rgba(168,85,247,0.1)" stroke="rgba(199,125,255,0.3)" stroke-width="1"/>
+  <rect x="230" y="145" width="140" height="12" rx="6" fill="#fff" opacity="0.85"/>
+  <rect x="230" y="168" width="200" height="7" rx="3.5" fill="#fff" opacity="0.2"/>
+  <rect x="230" y="185" width="160" height="7" rx="3.5" fill="#fff" opacity="0.12"/>
+  <rect x="230" y="205" width="80" height="22" rx="8" fill="url(#cp-glow)"/>
+  <!-- Compass orb -->
+  <g transform="translate(600, 200)">
+    <circle r="75" fill="rgba(168,85,247,0.15)" stroke="url(#cp-glow)" stroke-width="2"/>
+    <circle r="52" fill="none" stroke="rgba(0,212,255,0.3)" stroke-width="1"/>
+    <polygon points="0,-48 10,0 0,48 -10,0" fill="#c77dff" opacity="0.95"/>
+    <polygon points="0,-48 -10,0 0,0" fill="#00d4ff" opacity="0.7"/>
+    <circle r="8" fill="#fff" opacity="0.9"/>
   </g>
-  <!-- UI card mock -->
-  <rect x="420" y="90" width="280" height="200" rx="12" fill="rgba(18,26,53,0.9)" stroke="rgba(0,212,255,0.35)" stroke-width="1.5"/>
-  <rect x="440" y="110" width="120" height="10" rx="5" fill="#00d4ff" opacity="0.7"/>
-  <rect x="440" y="135" width="200" height="6" rx="3" fill="#fff" opacity="0.15"/>
-  <rect x="440" y="155" width="180" height="6" rx="3" fill="#fff" opacity="0.1"/>
-  <rect x="440" y="185" width="100" height="28" rx="6" fill="url(#accent1)" opacity="0.85"/>
-  <rect x="550" y="185" width="80" height="28" rx="6" fill="none" stroke="#9d4edd" stroke-width="1.5"/>
-  <rect x="440" y="230" width="60" height="40" rx="6" fill="rgba(0,212,255,0.15)"/>
-  <rect x="510" y="230" width="60" height="40" rx="6" fill="rgba(157,78,221,0.15)"/>
-  <rect x="580" y="230" width="60" height="40" rx="6" fill="rgba(0,212,255,0.1)"/>
-  <text x="400" y="355" text-anchor="middle" fill="#8899aa" font-family="Segoe UI, sans-serif" font-size="13" letter-spacing="2">CAREER PATH " AI ROADMAPS</text>
+  <text x="400" y="400" text-anchor="middle" fill="#9d8ab8" font-family="Segoe UI, system-ui, sans-serif" font-size="12" font-weight="600" letter-spacing="3">CAREER PATH · AI ROADMAPS</text>
 </svg>
