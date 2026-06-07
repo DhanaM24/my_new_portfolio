@@ -196,34 +196,6 @@ body {
   pointer-events: none;
 }
 
-.particle {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: var(--accent-cyan);
-  border-radius: 50%;
-  opacity: 0.5;
-  animation: particle-float 15s infinite;
-}
-
-@keyframes particle-float {
-  0%,
-  100% {
-    transform: translateY(100vh) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-100vh) rotate(720deg);
-    opacity: 0;
-  }
-}
-
 /* Navigation */
 nav {
   position: fixed;
@@ -543,7 +515,9 @@ section {
 
 /* About Section */
 .about {
-  background: var(--secondary-bg);
+  background: rgba(18, 18, 26, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .about-container {
@@ -765,7 +739,9 @@ section {
 
 /* Projects Section */
 .projects {
-  background: var(--primary-bg);
+  background: rgba(10, 10, 15, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .projects-grid {
@@ -1083,7 +1059,9 @@ section {
 
 /* Footer */
 footer {
-  background: var(--primary-bg);
+  background: rgba(10, 10, 15, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid var(--card-border);
   padding: 40px 50px;
   text-align: center;
