@@ -12,7 +12,7 @@ window.addEventListener("load", () => {
   loader.classList.add("hidden");
 
   const revealElements = document.querySelectorAll(
-    ".reveal, .about-text, .about-image, .stat-card, .skill-category, .project-card, .contact-wrapper",
+    ".reveal, .about-text, .about-image, .stat-card, .skill-category, .project-card, .cert-card, .contact-wrapper",
   );
   const showOnScroll = () => {
     const triggerBottom = window.innerHeight * 0.85;
