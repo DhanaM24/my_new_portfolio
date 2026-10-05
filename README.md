@@ -1,6 +1,6 @@
 <div align="center">
 
-# ✨ Hey, I'm Dhana
+# ✨ Hey, I'm Dhananji Pallegedara
 
 **Full-stack developer & designer — turning ideas into clean, living interfaces.**
 
